@@ -11,10 +11,10 @@ export default function Navbar() {
         </Link>
       </div>
       <div>
-        <Link href="/signup" className =  "inline-block rounded-full px-4 py-2 bg-gray-300 text-gray-800 mr-4">
+        <Link href="auth/signup" className =  "inline-block rounded-full px-4 py-2 bg-gray-300 text-gray-800 mr-4">
           Sign Up
         </Link>
-        <Link href="/signin">
+        <Link href="auth/signin">
           Sign In
         </Link>
       </div>
