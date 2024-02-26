@@ -30,5 +30,10 @@ export default function ProfilePage() {
 
   if (!userData) return <div className="w-full">No profile data</div>
 
-  return <div className="w-full">profile: {userData.username}</div>
+  return (
+    <div className="w-full">
+      <div>profile: {userData.username}</div>
+      <div>name: {userData.first_name} {userData.last_name}</div>
+    </div>
+  )
 }

@@ -10,7 +10,10 @@ export default function FeedCard({ task_id, task_data }) {
         <p><Link
             href={`/profile?id=${task_data.user_id}`}
             className="underline underline-offset-4 text-lg font-medium"
-          >hk0207</Link> (USERNAME: USING A TEMPORARY USER)</p>
+          >
+            {/* USERNAME: USING A TEMPORARY USERNAME. NEED TO CHANGE LATER */}
+            hk0207
+            </Link></p>
       </div>
       <div className="mb-2">
         <p className="text-lg font-medium">What I did today:</p>
@@ -18,7 +21,7 @@ export default function FeedCard({ task_id, task_data }) {
       </div>
       <div className="flex items-center">
         <FaRegHeart className="mr-2" />
-        <p>{task_data.likes.length}</p>
+        <p>{task_data.likes?.length}</p>
       </div>
     </div>
   )

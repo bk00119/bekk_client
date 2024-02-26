@@ -3,7 +3,7 @@ import FeedCard from "./components/feed/Card"
 
 // SERVER SIDE FUNCTION -> NOT VISIBLE ON CLIENT SIDE
 async function getFeed() {
-  const res = await fetch("https://bk00119.pythonanywhere.com/viewTasks", {
+  const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/viewTasks`, {
     method: "GET",
   })
 
