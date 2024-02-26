@@ -1,16 +1,25 @@
+import { FaRegHeart } from "react-icons/fa"
+import Link from "next/link"
+
 export default function FeedCard({ task_id, task_data }) {
   // CHANGE TO Post data, not Task
 
   return (
     <div className="w-auto bg-white drop-shadow mb-8 p-4">
       <div className="mb-2">
-        <p>USERNAME: NEED TO FETCH USER DATA</p>
+        <p><Link
+            href={`/profile?id=${task_data.user_id}`}
+            className="underline underline-offset-4 text-lg font-medium"
+          >hk0207</Link> (USERNAME: USING A TEMPORARY USER)</p>
       </div>
       <div className="mb-2">
         <p className="text-lg font-medium">What I did today:</p>
         <p>{task_data.content}</p>
       </div>
-      <p>likes: {task_data.likes.length}</p>
+      <div className="flex items-center">
+        <FaRegHeart className="mr-2" />
+        <p>{task_data.likes.length}</p>
+      </div>
     </div>
   )
 }
