@@ -6,10 +6,10 @@ export async function POST(req) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      _id: '6575033f3b89d2b4f309d7af'
+      _id: reqData._id
     })
   })
-
+  
   const data = await res.json()
 
   return Response.json(data)
