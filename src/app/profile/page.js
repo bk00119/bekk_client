@@ -57,31 +57,6 @@ export default function ProfilePage() {
 
   if (!userData) return <div className="w-full">No profile data</div>
 
-  // return (
-
-  //   <div className="w-full">
-  //     {isAddingPost ? (
-  //       <div>
-  //         <textarea
-  //           value={postContent}
-  //           onChange={(e) => setPostContent(e.target.value)}
-  //           placeholder="Write your post here..."
-  //           rows={4}
-  //           cols={50}
-  //           required
-  //           className="w-full border rounded-md p-2 mb-4"
-  //         />
-  //         <button onClick={handleSubmitPost} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Create Post</button>
-  //       </div>
-  //     ) : (
-  //       <button onClick={handleAddPost} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Add Post</button>
-  //     )}
-  //     <div>profile: {userData?.username}</div>
-  //     <div>
-  //       name: {userData?.first_name} {userData?.last_name}
-  //     </div>
-  //   </div>
-  // );
   return (
     <div className="w-full">
       <h2 className="mb-4 text-lg font-semibold">Your Profile:</h2>
