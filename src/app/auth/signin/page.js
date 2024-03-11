@@ -2,14 +2,34 @@
 
 import { useRouter } from "next/navigation"
 import { Formik, Form } from "formik"
+import * as Yup from "yup"
 import InputField from "@components/auth/inputField"
 
 function SigninPage() {
   const router = useRouter()
 
-  async function handleLogin() {
-    console.log("waiting to login...") // REMOVE THIS
+  async function handleLogin(data) {
+    const res = await fetch("/api/auth/signin", {
+      method: "POST",
+      body: JSON.stringify(data),
+    })
+
+    if (res.status === 200) {
+      router.push("/")
+    } else {
+      // MODIFY THE LOGIN FAIL MESSAGE
+      const auth = await res.json()
+      console.log(auth)
+      alert("failed login")
+    }
+
+    // const auth = await res.json()
+    // router.push('/')
   }
+
+  const signinSchema = Yup.object().shape({
+    email: Yup.string().email("Invalid email").required("Required"),
+  })
 
   return (
     <div className="flex flex-col items-center">
@@ -18,16 +38,21 @@ function SigninPage() {
           email: "",
           password: "",
         }}
+        validationSchema={signinSchema}
         onSubmit={(values) => {
-          console.log(values)
-
-          handleLogin()
+          handleLogin(values)
         }}
       >
         {({ errors, touched }) => (
           <Form className="max-w-96">
             {/* EMAIL */}
-            <InputField title="Email" name="email" type="email" />
+            <InputField
+              title="Email"
+              name="email"
+              type="email"
+              errors={errors.email}
+              touched={touched.email}
+            />
 
             {/* PASSWORD */}
             <InputField
@@ -35,6 +60,8 @@ function SigninPage() {
               name="password"
               type="password"
               container_styles="mb-4"
+              // errors={errors.password}
+              // touched={touched.password}
             />
 
             {/* SIGNIN BUTTON */}

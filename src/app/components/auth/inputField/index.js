@@ -9,6 +9,8 @@ export default function InputField({
   container_styles,
   title_styles,
   input_styles,
+  errors,
+  touched
 }) {
   return (
     <div className={`mb-2 max-w-96 ` + container_styles}>
@@ -21,7 +23,11 @@ export default function InputField({
           `text-lg border-solid border-2 border-gray-400 outline-none	pl-2 w-full ` +
           input_styles
         }
+        required
       />
+      {errors && touched ? (
+        <div className="text-red-600">{errors}</div>
+      ) : null}
     </div>
   )
 }
