@@ -14,12 +14,17 @@ function SigninPage() {
       body: JSON.stringify(data),
     })
 
-    const auth = await res.json()
+    if (res.status === 200) {
+      router.push("/")
+    } else {
+      // MODIFY THE LOGIN FAIL MESSAGE
+      const auth = await res.json()
+      console.log(auth)
+      alert("failed login")
+    }
 
-    console.log(auth)
-
-    // setUserData(await res.json())
-    // setLoading(false)
+    // const auth = await res.json()
+    // router.push('/')
   }
 
   const signinSchema = Yup.object().shape({
