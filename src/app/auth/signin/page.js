@@ -15,11 +15,12 @@ function SigninPage() {
     })
 
     if (res.status === 200) {
+      // PROVIDER SETUP A COOKIE THAT INCLUDES USER'S BASIC INFO LIKE (USER ID, NAME, EMAIL)
+
       router.push("/")
     } else {
       // MODIFY THE LOGIN FAIL MESSAGE
       const auth = await res.json()
-      console.log(auth)
       alert("failed login")
     }
 
