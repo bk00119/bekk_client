@@ -1,29 +1,43 @@
-'use server'
+'use client'
 
-import { cookies } from "next/headers"
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
+import Cookies from 'js-cookie';
 
 import Image from "next/image"
 import Link from "next/link"
 import logo from "@public/logo.png"
 import LogoutButton from "./logout_button"
+import { updateId, updateUser } from "@/lib/store";
 
-async function getCookies(){
-  const cookieStore = cookies()
-  const access_token = await cookieStore.get("access_token")
+export default function Navbar() {
+  const dispatch = useDispatch()
+  const user_id = Cookies.get('user_id')
+  const user = useSelector(({ userData }) => {
+    return userData
+  })
 
-  // console.log(access_token)
-  return access_token
-}
+  async function getUserData(user_id){
+    const res = await fetch("/api/profile/getUserData", {
+      method: "POST",
+      body: JSON.stringify({
+        _id: user_id,
+      }),
+    })
+    const data = await res.json()
+    dispatch(updateUser(data))
+    return data
+  }
 
-
-export default async function Navbar() {
-  // const cookieStore = cookies()
-  // const access_token = cookieStore.get("access_token")
-  // access_token = await fetchAccessTokenFromCookies()
-  // console.log(access_token)
-
-  const access_token = await getCookies()
-
+  useEffect(()=> {
+    if(user_id && !user._id){
+      const user_id = Cookies.get('user_id')
+      dispatch(updateId(user_id))
+      
+      // FETCH USER DATA AND UPDATE USERDATA
+      const data = getUserData(user_id)
+    }
+  },[user])
 
   return (
     <nav className="flex justify-center h-24 items-center px-4">
@@ -31,7 +45,7 @@ export default async function Navbar() {
         <Link href="/">
           <Image src={logo} alt="logo" height={100} priority />
         </Link>
-        {access_token ? (
+        {user._id ? (
           <div>
             <LogoutButton />
           </div>

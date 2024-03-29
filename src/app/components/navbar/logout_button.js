@@ -1,11 +1,15 @@
 "use client"
 
+import { resetUser } from "@/lib/store"
 import { useRouter } from "next/navigation"
+import { useDispatch } from "react-redux"
 
 export default function LogoutButton() {
+  const dispatch = useDispatch()
   const router = useRouter()
   async function signout(){
     const res = await fetch("/api/auth/signout")
+    dispatch(resetUser())
     router.push("/")
   }
 

@@ -1,12 +1,15 @@
 "use client"
 
 import { useRouter } from "next/navigation"
+import { useDispatch } from "react-redux"
 import { Formik, Form } from "formik"
 import * as Yup from "yup"
 import InputField from "@components/auth/inputField"
+import { updateUser } from "@/lib/store"
 
 function SigninPage() {
   const router = useRouter()
+  const dispatch = useDispatch()
 
   async function handleLogin(data) {
     const res = await fetch("/api/auth/signin", {
@@ -17,15 +20,15 @@ function SigninPage() {
     if (res.status === 200) {
       // PROVIDER SETUP A COOKIE THAT INCLUDES USER'S BASIC INFO LIKE (USER ID, NAME, EMAIL)
 
+      const data = await res.json() 
+      dispatch(updateUser(data))
       router.push("/")
+
     } else {
       // MODIFY THE LOGIN FAIL MESSAGE
       const auth = await res.json()
       alert("failed login")
     }
-
-    // const auth = await res.json()
-    // router.push('/')
   }
 
   const signinSchema = Yup.object().shape({

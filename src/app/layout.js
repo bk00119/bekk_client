@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google"
 import "./globals.css"
-// import StoreProvider from "./StoreProvider"
+import StoreProvider from "./StoreProvider"
 import Navbar from "./components/navbar"
 import Footer from "./components/footer"
 
@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
         className={`${inter.className} + min-h-screen flex flex-col justify-between`}
       >
         {/* ADD STOREPROVIDER WHEN REDUCERS ARE READY */}
-        {/* <StoreProvider> */}
+        <StoreProvider>
         <div className="w-full flex flex-col justify-center items-center mb-4">
           <header className="w-full">
             <Navbar />
@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
           <main className="h-full mt-4 w-full max-w-7xl px-4">{children}</main>
         </div>
         <Footer />
-        {/* </StoreProvider> */}
+        </StoreProvider>
       </body>
     </html>
   )
