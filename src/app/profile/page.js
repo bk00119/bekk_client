@@ -57,9 +57,14 @@ export default function ProfilePage() {
     }
   };
   const handleAddTask = (event) => {
-    console.log('here')
-    const taskContent = event.target.textContent;
-    handleCreateTask(taskContent);
+    try {
+      console.log('here')
+      const taskContent = event.target.textContent;
+      handleCreateTask(taskContent);
+    } catch (error){
+      console.error('Error adding task', error)
+    }
+    
   }
   const handleCreateTask = async (taskContent) => {
     try {
@@ -76,12 +81,15 @@ export default function ProfilePage() {
           content: taskContent
         }),
       });
+      if (!res.ok) {
+        throw new Error('Failed to create task');
+      }
       console.log(await res.json());
       console.log("Task created");
 
     }
     catch (error) {
-      console.log(error)
+      console.log('error creating task: ', error)
     }
   }
 
