@@ -10,6 +10,8 @@ export default function ProfilePage() {
   const [isAddingPost, setIsAddingPost] = useState(false)
   const [postContent, setPostContent] = useState("");
   const [isLoading, setLoading] = useState(true)
+  const [isAddingTask, setIsAddingTask] = useState(false)
+
 
 
   useEffect(() => {
@@ -54,9 +56,41 @@ export default function ProfilePage() {
       setIsAddingPost(false);
     }
   };
-  const handleAddTask = () => {
-    // setTasks([...tasks, newTask])
-    // setNewTask("")
+  const handleAddTask = (event) => {
+    try {
+      console.log('here')
+      const taskContent = event.target.textContent;
+      handleCreateTask(taskContent);
+    } catch (error){
+      console.error('Error adding task', error)
+    }
+    
+  }
+  const handleCreateTask = async (taskContent) => {
+    try {
+      const res = await fetch("/api/task/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          //hypothetical fields in collection
+          user_id: profile_id,
+          goal_id : "123456",
+          is_completed: false,
+          content: taskContent
+        }),
+      });
+      if (!res.ok) {
+        throw new Error('Failed to create task');
+      }
+      console.log(await res.json());
+      console.log("Task created");
+
+    }
+    catch (error) {
+      console.log('error creating task: ', error)
+    }
   }
 
   if (isLoading) return <div className="w-full">Loading...</div>
@@ -68,11 +102,11 @@ export default function ProfilePage() {
 
       {/* Profile Section */}
       <div className="w-1/2">
-        <h2 className="mb-4 text-lg font-semibold">Your Profile:</h2>
+        {/* <h2 className="mb-4 text-lg font-semibold">Your Profile:</h2>
         <div>profile: {userData?.username}</div>
         <div>
           name: {userData?.first_name} {userData?.last_name}
-        </div>
+        </div> */}
         {isAddingPost ? (
           <div>
             <textarea
