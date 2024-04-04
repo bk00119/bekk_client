@@ -42,6 +42,7 @@ function SigninPage() {
         }}
         validationSchema={signinSchema}
         onSubmit={(values) => {
+          console.log(values)
           handleLogin(values)
         }}
       >
