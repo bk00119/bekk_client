@@ -1,9 +1,9 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 
-export default function ProfilePage() {
+function ProfilePageInner(){
   const searchParams = useSearchParams()
   const profile_id = searchParams.get("id")
   const [userData, setUserData] = useState(null)
@@ -131,4 +131,13 @@ export default function ProfilePage() {
       
     </div>
   );
+}
+
+export default function ProfilePage() {
+  return (
+    // useSearchParams() needs to be wrapped in a Suspense boundary.
+    <Suspense>
+      <ProfilePageInner />
+    </Suspense>
+  )
 }

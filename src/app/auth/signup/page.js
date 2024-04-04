@@ -1,14 +1,29 @@
 "use client"
 
 import { useRouter } from "next/navigation"
+import { useDispatch } from "react-redux"
 import { Formik, Form } from "formik"
+
 import InputField from "@components/auth/inputField"
+import { updateUser } from "@/lib/store"
 
 function SignupPage() {
   const router = useRouter()
+  const dispatch = useDispatch()
 
-  async function handleSignup() {
-    console.log("waiting to signup...") // REMOVE THIS
+  async function handleSignup(data) {
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
+      body: JSON.stringify(data),
+    })
+
+    const resData = await res.json()
+    if (res.status === 200){
+      dispatch(updateUser(resData))
+      router.push("/")
+    } else {
+      alert(resData.message)
+    }
   }
 
   return (
@@ -16,15 +31,13 @@ function SignupPage() {
       <Formik
         initialValues={{
           email: "",
-          f_name: "",
-          l_name: "",
+          first_name: "",
+          last_name: "",
           username: "",
           password: "",
         }}
         onSubmit={(values) => {
-          console.log(values)
-
-          handleSignup()
+          handleSignup(values)
         }}
       >
         {({ errors, touched }) => (
@@ -33,10 +46,10 @@ function SignupPage() {
             <InputField title="Email" name="email" type="email" />
 
             {/* FIRST NAME */}
-            <InputField title="First name" name="f_name" type="text" />
+            <InputField title="First name" name="first_name" type="text" />
 
             {/* LAST NAME */}
-            <InputField title="Last name" name="l_name" type="text" />
+            <InputField title="Last name" name="last_name" type="text" />
 
             {/* USERNAME */}
             <InputField title="Username" name="username" type="text" />

@@ -17,22 +17,18 @@ function SigninPage() {
       body: JSON.stringify(data),
     })
 
+    const resData = await res.json() 
     if (res.status === 200) {
-      // PROVIDER SETUP A COOKIE THAT INCLUDES USER'S BASIC INFO LIKE (USER ID, NAME, EMAIL)
-
-      const data = await res.json() 
-      dispatch(updateUser(data))
+      dispatch(updateUser(resData))
       router.push("/")
-
     } else {
-      // MODIFY THE LOGIN FAIL MESSAGE
-      const auth = await res.json()
-      alert("failed login")
+      alert(resData.message)
     }
   }
 
   const signinSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
+    password: Yup.string().required("Required")
   })
 
   return (
