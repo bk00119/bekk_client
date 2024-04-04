@@ -10,8 +10,8 @@ export default function LogoutButton() {
   async function signout(){
     const res = await fetch("/api/auth/signout")
     dispatch(resetUser())
-    router.refresh()
     router.push("/")
+    router.refresh()
   }
 
   return (

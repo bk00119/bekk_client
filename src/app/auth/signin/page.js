@@ -19,10 +19,9 @@ function SigninPage() {
 
     const resData = await res.json() 
     if (res.status === 200) {
-      console.log(resData)
       router.push("/")
       dispatch(updateUser(resData))
-      // router.refresh()
+      router.refresh()
     } else {
       alert(resData.message)
     }
@@ -42,7 +41,6 @@ function SigninPage() {
         }}
         validationSchema={signinSchema}
         onSubmit={(values) => {
-          console.log(values)
           handleLogin(values)
         }}
       >
