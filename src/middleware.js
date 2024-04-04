@@ -4,15 +4,15 @@ import { NextResponse } from "next/server"
 export function middleware(request) {
   const currentUser = request.cookies.get("access_token")?.value
 
-  // WHEN SIGNED IN, NO ACCESS TO SIGNIN OR SIGNUP PAGE
-  if (currentUser && request.nextUrl.pathname.startsWith("/auth")) {
-    return NextResponse.redirect(new URL("/test1", request.url))
-  }
+  // // WHEN SIGNED IN, NO ACCESS TO SIGNIN OR SIGNUP PAGE
+  // if (currentUser && request.nextUrl.pathname.startsWith("/auth")) {
+  //   return NextResponse.redirect(new URL("/", request.url))
+  // }
 
-  // WHEN SIGNED OUT, NO ACCESS TO PAGES OTHER THAN SIGNIN OR SIGNUP PAGE
-  if (!currentUser && !request.nextUrl.pathname.startsWith("/auth")) {
-    return NextResponse.redirect(new URL("/auth/signin", request.url))
-  }
+  // // WHEN SIGNED OUT, NO ACCESS TO PAGES OTHER THAN SIGNIN OR SIGNUP PAGE
+  // if (!currentUser && !request.nextUrl.pathname.startsWith("/auth")) {
+  //   return NextResponse.redirect(new URL("/auth/signin", request.url))
+  // }
 }
 
 export const config = {
