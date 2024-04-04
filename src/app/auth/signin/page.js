@@ -19,9 +19,10 @@ function SigninPage() {
 
     const resData = await res.json() 
     if (res.status === 200) {
-      dispatch(updateUser(resData))
-      router.refresh()
+      console.log(resData)
       router.push("/")
+      dispatch(updateUser(resData))
+      // router.refresh()
     } else {
       alert(resData.message)
     }
