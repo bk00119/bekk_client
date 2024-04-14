@@ -13,7 +13,8 @@ export async function POST(req) {
     }
   )
 
+  const status = res.status
   const data = await res.json()
 
-  return Response.json(data)
+  return Response.json( data, { status: status })
 }

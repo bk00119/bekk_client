@@ -1,15 +1,12 @@
 "use client"
 
-import { useState, useEffect, Suspense } from "react"
-import { useSearchParams } from "next/navigation"
+import { useState, useEffect } from "react"
 
-import NewPostField from "../components/profile/newPostField"
-import NewTaskField from "../components/profile/newTaskField"
-import TaskList from "../components/profile/taskList"
+import NewPostField from "../newPostField"
+import NewTaskField from "../newTaskField"
+import TaskList from "../taskList"
 
-function ProfilePageInner() {
-  const searchParams = useSearchParams()
-  const profile_id = searchParams.get("id")
+export default function PrivateProfilePage({ profile_id, children }) {
   const [userData, setUserData] = useState(null)
   const [isLoading, setLoading] = useState(true)
 
@@ -26,7 +23,10 @@ function ProfilePageInner() {
         _id: profile_id,
       }),
     })
-    setUserData(await res.json())
+    const data = await res.json()
+    if (res.status == 200) {
+      setUserData(data)
+    }
     setLoading(false)
   }
 
@@ -36,6 +36,8 @@ function ProfilePageInner() {
 
   return (
     <div className="w-full">
+      {children}
+
       {/* Profile Section */}
       <h2 className="mb-4 text-lg font-semibold">Your Profile:</h2>
       <div>profile: {userData?.username}</div>
@@ -63,14 +65,5 @@ function ProfilePageInner() {
         </div>
       </div>
     </div>
-  )
-}
-
-export default function ProfilePage() {
-  return (
-    // useSearchParams() needs to be wrapped in a Suspense boundary.
-    <Suspense>
-      <ProfilePageInner />
-    </Suspense>
   )
 }

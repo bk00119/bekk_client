@@ -8,7 +8,7 @@ export default function FeedCard({ task_id, task_data }) {
     <div className="w-auto bg-white drop-shadow mb-8 p-4">
       <div className="mb-2">
         <p><Link
-            href={`/profile?id=${task_data.user_id}`}
+            href={`/profile/${task_data.user_id}`}
             className="underline underline-offset-4 text-lg font-medium"
           >
             {/* USERNAME: USING A TEMPORARY USERNAME. NEED TO CHANGE LATER */}
