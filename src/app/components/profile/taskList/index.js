@@ -9,6 +9,8 @@ export default function TaskList() {
       {tasks.map((task, index) => (
         <li key={index}>{task}</li>
       ))} */}
+
+      {/* MARK TASKS COMPLETE/INCOMPLETE */}
       </ul>
     </div>
   )

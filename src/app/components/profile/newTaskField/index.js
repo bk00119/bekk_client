@@ -1,9 +1,20 @@
 "use client"
 
-export default function NewTaskField() {
+import Select from "react-select"
+import { useId, useState } from 'react';
+
+export default function NewTaskField({ goals }) {
+  const [goal, setGoal] = useState(null)
+
+  const goalOptions = Object.entries(goals).map(([key, val]) => ({
+    label: val.content,
+    value: key,
+  }))
+
   function handleAddTask(event) {
     try {
       console.log("here")
+      console.log(goal)
       const taskContent = event.target.textContent
 
       //FIX THIS!!
@@ -40,14 +51,26 @@ export default function NewTaskField() {
 
   return (
     <div className="w-full mt-4">
-      <h3 className="text-lg font-semibold mb-2">Add Task:</h3>
+      <p className="font-semibold mb-2">Add Task:</p>
+      {/* INPUT TASK NAME */}
       <input
         type="text"
         //alue={newTask}
         //onChange={(e) => setNewTask(e.target.value)}
-        placeholder="Enter task"
+        placeholder="Enter a task name"
         className="w-full border rounded-md p-2 mb-2"
       />
+
+      {/* SELECT GOALS */}
+      <Select 
+        // options={goals}
+        options={goalOptions}
+        instanceId={useId()}
+        required={true}
+        onChange={(option) => setGoal(option.value)}
+        className="w-full mb-2"
+      />
+
       <button
         onClick={handleAddTask}
         className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"

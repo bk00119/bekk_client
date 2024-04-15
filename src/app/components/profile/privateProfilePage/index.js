@@ -1,3 +1,6 @@
+import { cookies } from "next/headers"
+
+import GoalList from "../goalList"
 import NewPostField from "../newPostField"
 import NewTaskField from "../newTaskField"
 import TaskList from "../taskList"
@@ -25,8 +28,32 @@ async function getUserData(profile_id) {
   return null
 }
 
+async function getUserGoals(profile_id) {
+  const res = await fetch(
+    `${process.env.REACT_APP_BACKEND_URL}/view/User/Goals`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: profile_id,
+        access_token: cookies().get("access_token").value,
+        refresh_token: cookies().get("refresh_token").value,
+      }),
+    }
+  )
+  const status = res.status
+  const data = await res.json()
+  if (status == 200) {
+    return data.Goals
+  }
+  return null
+}
+
 export default async function PrivateProfilePage({ profile_id, children }) {
   const userData = await getUserData(profile_id)
+  const userGoals = await getUserGoals(profile_id)
 
   return userData ? (
     <div className="w-full">
@@ -49,15 +76,20 @@ export default async function PrivateProfilePage({ profile_id, children }) {
         </div>
 
         {/* RIGHT COLUMN */}
-        <div className="w-1/4">
+        <div className="w-1/2 ml-4">
           {/* Tasks Section */}
           <div className="w-full p-4 border rounded">
-            <TaskList />
-            <NewTaskField />
+            <NewTaskField goals={userGoals} />
           </div>
 
           {/* GOAL SECTION */}
-          <div></div>
+          <div className="w-full p-4 border rounded mt-4">
+            <GoalList goals={userGoals} />
+            {/* THE LIST OF TASKS SHOULD BE INSIDE THE GOALIST */}
+            {/* <TaskList /> */}
+
+            {/* ADD NewGoalField */}
+          </div>
         </div>
       </div>
     </div>
