@@ -1,9 +1,8 @@
+import { cookies } from "next/headers"
+
+import { verifyToken } from "@/utils/jwt"
 import ErrorMessage from "./components/errorMessage"
 import FeedCard from "./components/feed/Card"
-import { cookies } from "next/headers"
-import { verifyToken } from "@/utils/jwt"
-
-
 
 async function getFeed() {
   const cookieStore = cookies()
@@ -13,14 +12,17 @@ async function getFeed() {
   // CURRENT USER'S ID
   const curr_user_id = access_token_data?.user_id
 
-
   if(!curr_user_id) return console.log("Error: failed loading feed bc user_id ")
 
-  const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/view/posts/${curr_user_id}`, {
+  const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/view/posts/all`, {
     method: "GET",
   })
 
-  return res.json()
+  if (res.status == 200){
+    return res.json()
+  }
+
+  return null
 }
 
 export default async function Home() {

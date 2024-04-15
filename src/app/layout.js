@@ -4,13 +4,14 @@ import "./globals.css"
 import StoreProvider from "./StoreProvider"
 import Navbar from "./components/navbar"
 import Footer from "./components/footer"
+import { Suspense } from "react"
+import Loading from "./loading"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
   title: "BEKK",
   description: "Manage your goals and share with others!",
 }
-
 
 export default function RootLayout({ children }) {
   return (
@@ -25,7 +26,7 @@ export default function RootLayout({ children }) {
               <Navbar />
             </header>
             <main className="h-full mt-4 w-full max-w-7xl px-4">
-              {children}
+              <Suspense fallback={<Loading />}>{children}</Suspense>
             </main>
           </div>
           <Footer />

@@ -1,3 +1,5 @@
+"use client"
+
 export default function NewTaskField() {
   function handleAddTask(event) {
     try {

@@ -1,36 +1,31 @@
-"use client"
+import UserFeed from "../userFeed"
 
-import { useState, useEffect } from "react"
-
-export default function PublicProfilePage({ profile_id, children }) {
-  const [userData, setUserData] = useState(null)
-  const [isLoading, setLoading] = useState(true)
-
-  useEffect(() => {
-    if (isLoading) {
-      getUserData()
-    }
-  }, [])
-
-  async function getUserData() {
-    const res = await fetch("/api/profile/getUserData", {
+// SERVER SIDE FUNCTION -> NOT VISIBLE ON CLIENT SIDE
+async function getUserData(profile_id) {
+  const res = await fetch(
+    `${process.env.REACT_APP_BACKEND_URL}/view/User/Public`,
+    {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         _id: profile_id,
       }),
-    })
-    const data = await res.json()
-    if (res.status == 200) {
-      setUserData(data)
     }
-    setLoading(false)
+  )
+  const status = res.status
+  const data = await res.json()
+  if (status == 200) {
+    return data
   }
+  return null
+}
 
-  if (isLoading) return <div className="w-full">Loading...</div>
+export default async function PublicProfilePage({ profile_id, children }) {
+  const userData = await getUserData(profile_id)
 
-  if (!userData) return <div className="w-full">No profile data</div>
-
-  return (
+  return userData ? (
     <div className="w-full">
       {children}
 
@@ -40,6 +35,11 @@ export default function PublicProfilePage({ profile_id, children }) {
       <div>
         name: {userData?.first_name} {userData?.last_name}
       </div>
+
+      {/* FEED */}
+      <UserFeed user_id={profile_id} username={userData.username} />
     </div>
+  ) : (
+    <div className="w-full">No profile data</div>
   )
 }

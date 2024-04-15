@@ -1,41 +1,36 @@
-"use client"
-
-import { useState, useEffect } from "react"
-
 import NewPostField from "../newPostField"
 import NewTaskField from "../newTaskField"
 import TaskList from "../taskList"
+import UserFeed from "../userFeed"
 
-export default function PrivateProfilePage({ profile_id, children }) {
-  const [userData, setUserData] = useState(null)
-  const [isLoading, setLoading] = useState(true)
-
-  useEffect(() => {
-    if (isLoading) {
-      getUserData()
-    }
-  }, [])
-
-  async function getUserData() {
-    const res = await fetch("/api/profile/getUserData", {
+// SERVER SIDE FUNCTION -> NOT VISIBLE ON CLIENT SIDE
+async function getUserData(profile_id) {
+  const res = await fetch(
+    `${process.env.REACT_APP_BACKEND_URL}/view/User/Public`,
+    {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         _id: profile_id,
       }),
-    })
-    const data = await res.json()
-    if (res.status == 200) {
-      setUserData(data)
     }
-    setLoading(false)
+  )
+  const status = res.status
+  const data = await res.json()
+  if (status == 200) {
+    return data
   }
+  return null
+}
 
-  if (isLoading) return <div className="w-full">Loading...</div>
+export default async function PrivateProfilePage({ profile_id, children }) {
+  const userData = await getUserData(profile_id)
 
-  if (!userData) return <div className="w-full">No profile data</div>
-
-  return (
+  return userData ? (
     <div className="w-full">
+      {/* MODIFY THIS */}
       {children}
 
       {/* Profile Section */}
@@ -50,6 +45,7 @@ export default function PrivateProfilePage({ profile_id, children }) {
         {/* POST SECTION */}
         <div className="w-full">
           <NewPostField user_id={profile_id} />
+          <UserFeed user_id={profile_id} username={userData.username} />
         </div>
 
         {/* RIGHT COLUMN */}
@@ -65,5 +61,7 @@ export default function PrivateProfilePage({ profile_id, children }) {
         </div>
       </div>
     </div>
+  ) : (
+    <div className="w-full">No profile data</div>
   )
 }
