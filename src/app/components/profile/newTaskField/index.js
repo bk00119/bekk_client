@@ -1,30 +1,41 @@
 "use client"
 
 import Select from "react-select"
-import { useId, useState } from 'react';
+import { useId, useRef, useState } from 'react';
+import { useRouter } from "next/navigation";
 
-export default function NewTaskField({ goals }) {
-  const [goal, setGoal] = useState(null)
+export default function NewTaskField({ user_id, goals }) {
+  const router = useRouter()
+  const ref = useRef()
 
-  const goalOptions = Object.entries(goals).map(([key, val]) => ({
+  const selectRef = useRef(null)
+  const inputRef = useRef(null)
+
+  const [task, setTask] = useState('')
+  const [goal, setGoal] = useState('')
+
+  const goal_options = Object.entries(goals).map(([key, val]) => ({
     label: val.content,
     value: key,
   }))
 
-  function handleAddTask(event) {
+  function handleAddTask() {
     try {
-      console.log("here")
-      console.log(goal)
-      const taskContent = event.target.textContent
+      if (task.length === 0){
+        return alert("Please enter a task name")
+      }
 
-      //FIX THIS!!
-      // handleCreateTask(taskContent)
+      if (goal.length === 0){
+        return alert("Please select a goal")
+      }
+      handleCreateTask()
+      
     } catch (error) {
       console.error("Error adding task", error)
     }
   }
 
-  async function handleCreateTask(taskContent) {
+  async function handleCreateTask() {
     try {
       const res = await fetch("/api/task/create", {
         method: "POST",
@@ -33,17 +44,20 @@ export default function NewTaskField({ goals }) {
         },
         body: JSON.stringify({
           //hypothetical fields in collection
-          user_id: profile_id,
-          goal_id: "123456",
+          user_id: user_id,
+          goal_id: goal,
           is_completed: false,
-          content: taskContent,
+          content: task,
         }),
       })
-      if (!res.ok) {
+      if (res.ok) {
+        setGoal('')
+        setTask('')
+        selectRef.current.setValue('')
+        router.refresh()
+      } else {
         throw new Error("Failed to create task")
       }
-      console.log(await res.json())
-      console.log("Task created")
     } catch (error) {
       console.log("error creating task: ", error)
     }
@@ -55,18 +69,18 @@ export default function NewTaskField({ goals }) {
       {/* INPUT TASK NAME */}
       <input
         type="text"
-        //alue={newTask}
-        //onChange={(e) => setNewTask(e.target.value)}
+        value={task}
+        onChange={(e) => setTask(e.target.value)}
         placeholder="Enter a task name"
         className="w-full border rounded-md p-2 mb-2"
       />
 
       {/* SELECT GOALS */}
       <Select 
-        // options={goals}
-        options={goalOptions}
+        placeholder="Select a goal"
+        ref={selectRef}
+        options={goal_options}
         instanceId={useId()}
-        required={true}
         onChange={(option) => setGoal(option.value)}
         className="w-full mb-2"
       />
