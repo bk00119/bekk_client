@@ -19,7 +19,8 @@ async function getFeed() {
   })
 
   if (res.status == 200){
-    return res.json()
+    const data = await res.json()
+    return data
   }
 
   return null
@@ -28,7 +29,7 @@ async function getFeed() {
 export default async function Home() {
   const feed = await getFeed();
 
-  if (feed && Object.keys(feed).length > 0) {
+  if (feed) {
     return (
       <div className="w-full">
         <h1 className="text-2xl mb-8">Feed</h1>

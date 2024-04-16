@@ -51,34 +51,9 @@ async function getUserGoals(profile_id) {
   return null
 }
 
-// REMOVE THIS -> NEED TO FETCH DATA FROM TASKS WITHIN THE GOAL
-// async function getUserTasks(profile_id){
-//   const res = await fetch(
-//     `${process.env.REACT_APP_BACKEND_URL}/view/User/Tasks`,
-//     {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         user_id: profile_id,
-//         access_token: cookies().get("access_token").value,
-//         refresh_token: cookies().get("refresh_token").value,
-//       }),
-//     }
-//   )
-//   const status = res.status
-//   const data = await res.json()
-//   if (status == 200) {
-//     return data.Tasks
-//   }
-//   return null
-// }
-
 export default async function PrivateProfilePage({ profile_id, children }) {
   const userData = await getUserData(profile_id)
   const userGoals = await getUserGoals(profile_id)
-  // const userTasks = await getUserTasks(profile_id)
 
   return userData ? (
     <div className="w-full">
