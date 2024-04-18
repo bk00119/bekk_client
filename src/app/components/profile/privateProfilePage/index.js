@@ -53,7 +53,10 @@ async function getUserGoals(profile_id) {
 
 export default async function PrivateProfilePage({ profile_id, children }) {
   const userData = await getUserData(profile_id)
-  const userGoals = await getUserGoals(profile_id)
+  let userGoals = await getUserGoals(profile_id)
+  if (!userGoals) {
+    userGoals = []
+  }
 
   return userData ? (
     <div className="w-full">

@@ -5,20 +5,23 @@ export default function GoalList({ goals }) {
       <h2 className="mb-4 text-lg font-semibold">Goals:</h2>
       {/* DISPLAY USER'S GOALS & Attached Tasks*/}
       <ul className="list-inside list-disc">
-      {Object.entries(goals).map(([key, val]) => (
-        <li key={key}>
-          {/* GOAL NAME */}
-          <span>{val.content}</span>
+        {goals &&
+          Object.entries(goals).map(([key, val]) => (
+            <li key={key}>
+              {/* GOAL NAME */}
+              <span>{val.content}</span>
 
-          {/* LIST OF TASKS */}
-          <p>Tasks</p>
-          <ul>
-            {val.tasks.map((task) => (
-              <li key={task._id}>{task.content}</li>
-            ))}
-          </ul>
-        </li>
-      ))}
+              {/* LIST OF TASKS */}
+              <div className="ml-6">
+                <p className="underline">Tasks</p>
+                <ul className="list-inside list-[circle]">
+                  {val.tasks.map((task) => (
+                    <li key={task._id}>{task.content}</li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          ))}
       </ul>
 
       {/* 1) CURRENT (INCOMPLETE) */}

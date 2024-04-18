@@ -1,8 +1,8 @@
 "use client"
 
 import Select from "react-select"
-import { useId, useRef, useState } from 'react';
-import { useRouter } from "next/navigation";
+import { useId, useRef, useState } from "react"
+import { useRouter } from "next/navigation"
 
 export default function NewTaskField({ user_id, goals }) {
   const router = useRouter()
@@ -11,25 +11,26 @@ export default function NewTaskField({ user_id, goals }) {
   const selectRef = useRef(null)
   const inputRef = useRef(null)
 
-  const [task, setTask] = useState('')
-  const [goal, setGoal] = useState('')
+  const [task, setTask] = useState("")
+  const [goal, setGoal] = useState("")
 
-  const goal_options = Object.entries(goals).map(([key, val]) => ({
-    label: val.content,
-    value: key,
-  }))
+  const goal_options = goals
+    ? Object.entries(goals).map(([key, val]) => ({
+        label: val.content,
+        value: key,
+      }))
+    : []
 
   function handleAddTask() {
     try {
-      if (task.length === 0){
+      if (task.length === 0) {
         return alert("Please enter a task name")
       }
 
-      if (goal.length === 0){
+      if (goal.length === 0) {
         return alert("Please select a goal")
       }
       handleCreateTask()
-      
     } catch (error) {
       console.error("Error adding task", error)
     }
@@ -51,9 +52,9 @@ export default function NewTaskField({ user_id, goals }) {
         }),
       })
       if (res.ok) {
-        setGoal('')
-        setTask('')
-        selectRef.current.setValue('')
+        setGoal("")
+        setTask("")
+        selectRef.current.setValue("")
         router.refresh()
       } else {
         throw new Error("Failed to create task")
@@ -76,7 +77,7 @@ export default function NewTaskField({ user_id, goals }) {
       />
 
       {/* SELECT GOALS */}
-      <Select 
+      <Select
         placeholder="Select a goal"
         ref={selectRef}
         options={goal_options}
