@@ -7,7 +7,6 @@ export default function NewGoalField({ user_id }) {
   const router = useRouter()
   const ref = useRef()
 
-  const selectRef = useRef(null)
   const inputRef = useRef(null)
 
   const [goal, setGoal] = useState("")
@@ -40,6 +39,7 @@ export default function NewGoalField({ user_id }) {
       })
       if (res.ok) {
         setGoal("")
+        inputRef.current.value = ""
         router.refresh()
       } else {
         throw new Error("Failed to create goal")
@@ -55,6 +55,7 @@ export default function NewGoalField({ user_id }) {
       {/* INPUT GOAL NAME */}
       <input
         type="text"
+        ref={inputRef}
         onChange={(e) => setGoal(e.target.value)}
         placeholder="Enter a goal name"
         className="w-full border rounded-md p-2 mb-2"
