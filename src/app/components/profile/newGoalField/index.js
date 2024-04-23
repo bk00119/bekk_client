@@ -16,7 +16,6 @@ export default function NewGoalField({ user_id }) {
       if (goal.length === 0) {
         return alert("Please enter a goal name")
       }
-      console.log("goal: ", goal )
       handleCreateGoal()
     } catch (error) {
       console.error("Error adding goal", error)
