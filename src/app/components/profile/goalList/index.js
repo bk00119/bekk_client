@@ -1,5 +1,19 @@
 // goals: user's goals (all: incomplete + completed)
 export default function GoalList({ goals }) {
+  const completed_goals = []
+  const incomplete_goals = []
+  
+  // SPLIT UP BY is_completed 
+  Object.entries(goals).forEach(([goal_id, goal_content]) => {
+    if (goal_content.is_completed) {
+      goal_content._id = goal_id
+      completed_goals.push(goal_content)
+    } else {
+      goal_content._id = goal_id
+      incomplete_goals.push(goal_content)
+    }
+  })
+
   return (
     <div className="w-full">
       <h2 className="mb-4 text-lg font-semibold">Goals:</h2>
