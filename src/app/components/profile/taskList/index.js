@@ -1,17 +1,16 @@
-"use client"
-
-export default function TaskList() {
-  return (
-    <div className="w-full">
-      <h2 className="mb-4 text-lg font-semibold">Tasks:</h2>
-      <ul className="list-disc ml-6">
-        {/* Display tasks here
-      {tasks.map((task, index) => (
-        <li key={index}>{task}</li>
-      ))} */}
-
-      {/* MARK TASKS COMPLETE/INCOMPLETE */}
-      </ul>
-    </div>
-  )
+export default function TaskList({ tasks, is_completed }) {
+  if (tasks.length > 0) {
+    return (
+      <div className="mt-1">
+        <p className="underline">
+          {is_completed ? "Completed tasks" : "Incomplete tasks"}
+        </p>
+        <div className="list-inside list-[circle]">
+          {tasks.map((task) => (
+            <p key={task._id}>{task.content}</p>
+          ))}
+        </div>
+      </div>
+    )
+  }
 }

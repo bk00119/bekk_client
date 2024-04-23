@@ -4,7 +4,6 @@ import GoalList from "../goalList"
 import NewPostField from "../newPostField"
 import NewTaskField from "../newTaskField"
 import NewGoalField from "../newGoalField"
-import TaskList from "../taskList"
 import UserFeed from "../userFeed"
 
 // SERVER SIDE FUNCTION -> NOT VISIBLE ON CLIENT SIDE
@@ -89,9 +88,6 @@ export default async function PrivateProfilePage({ profile_id, children }) {
           {/* GOAL SECTION */}
           <div className="w-full p-4 border rounded mt-4">
             <GoalList goals={userGoals} />
-            {/* THE LIST OF TASKS SHOULD BE INSIDE THE GOALIST */}
-            {/* <TaskList /> */}
-
             {/* ADD NewGoalField */}
             <NewGoalField user_id={profile_id} />
           </div>
