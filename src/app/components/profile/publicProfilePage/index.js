@@ -3,7 +3,7 @@ import UserFeed from "../userFeed"
 // SERVER SIDE FUNCTION -> NOT VISIBLE ON CLIENT SIDE
 async function getUserData(profile_id) {
   const res = await fetch(
-    `${process.env.REACT_APP_BACKEND_URL}/view/User/Public`,
+    `${process.env.REACT_APP_BACKEND_URL}/view/user/public`,
     {
       method: "POST",
       headers: {

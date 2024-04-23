@@ -1,7 +1,7 @@
 export async function POST(req) {
   const reqData = await req.json()
   const res = await fetch(
-    `${process.env.REACT_APP_BACKEND_URL}/view/User/Public`,
+    `${process.env.REACT_APP_BACKEND_URL}/view/user/public`,
     {
       method: "POST",
       headers: {
