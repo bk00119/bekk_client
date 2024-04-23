@@ -3,6 +3,7 @@ import { cookies } from "next/headers"
 import GoalList from "../goalList"
 import NewPostField from "../newPostField"
 import NewTaskField from "../newTaskField"
+import NewGoalField from "../newGoalField"
 import TaskList from "../taskList"
 import UserFeed from "../userFeed"
 
@@ -92,6 +93,7 @@ export default async function PrivateProfilePage({ profile_id, children }) {
             {/* <TaskList /> */}
 
             {/* ADD NewGoalField */}
+            <NewGoalField user_id={profile_id} />
           </div>
         </div>
       </div>

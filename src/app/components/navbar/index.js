@@ -47,7 +47,14 @@ export default function Navbar() {
         </Link>
         {user._id ? (
           <div>
+            <Link
+                href={`/profile/${user_id}`}
+                className="inline-block rounded-full px-4 py-2 bg-blue-500 text-white mr-4 hover:bg-blue-600"
+                >
+                My Profile
+            </Link>
             <LogoutButton />
+
           </div>
         ) : (
           <div>

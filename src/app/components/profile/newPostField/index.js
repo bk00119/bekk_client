@@ -18,7 +18,7 @@ export default function NewPostField({ user_id }) {
         user_id: user_id,
       }),
     })
-    console.log(await res.json())
+    // console.log(await res.json())
     console.log("Post created")
   }
 
