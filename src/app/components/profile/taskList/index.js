@@ -3,7 +3,7 @@ import TaskBox from "../taskBox";
 export default function TaskList({ tasks, is_completed }) {
   if (tasks.length > 0) {
     return (
-      <div className="mt-1">
+      <div className="mt-2">
         <p className="underline">
           {is_completed ? "Completed tasks" : "Incomplete tasks"}
         </p>
