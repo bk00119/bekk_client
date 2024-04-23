@@ -1,4 +1,4 @@
-import TaskBox from "../taskBox";
+import TaskBox from "../taskBox"
 
 export default function TaskList({ tasks, is_completed }) {
   if (tasks.length > 0) {
@@ -9,7 +9,9 @@ export default function TaskList({ tasks, is_completed }) {
         </p>
         <div className="list-inside list-[circle]">
           {tasks.map((task) => (
-            <TaskBox task={task} key={task._id} />
+            <div key={task._id}>
+              <TaskBox task={task} task_id={task._id} />
+            </div>
           ))}
         </div>
       </div>

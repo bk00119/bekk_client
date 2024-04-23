@@ -1,10 +1,10 @@
 import { cookies } from "next/headers"
 
-import GoalList from "../goalList"
 import NewPostField from "../newPostField"
 import NewTaskField from "../newTaskField"
 import NewGoalField from "../newGoalField"
 import UserFeed from "../userFeed"
+import GoalsContainer from "../goalsContainer"
 
 // SERVER SIDE FUNCTION -> NOT VISIBLE ON CLIENT SIDE
 async function getUserData(profile_id) {
@@ -87,7 +87,7 @@ export default async function PrivateProfilePage({ profile_id, children }) {
 
           {/* GOAL SECTION */}
           <div className="w-full p-4 border rounded mt-4">
-            <GoalList goals={userGoals} />
+            <GoalsContainer goals={userGoals} />
             {/* ADD NewGoalField */}
             <NewGoalField user_id={profile_id} />
           </div>

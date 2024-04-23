@@ -77,6 +77,7 @@ export default function NewTaskField({ user_id, goals }) {
       />
 
       {/* SELECT GOALS */}
+      {/* Warning: Extra attributes from the server: aria-activedescendant */}
       <Select
         placeholder="Select a goal"
         ref={selectRef}

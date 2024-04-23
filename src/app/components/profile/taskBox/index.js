@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
-export default function TaskBox({ task, key }) {
+export default function TaskBox({ task }) {
   const router = useRouter()
   const [isCompleted, setIsCompleted] = useState(task.is_completed)
   const [isInputType, setIsInputType] = useState(false)
