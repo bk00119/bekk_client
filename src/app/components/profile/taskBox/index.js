@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { MdEdit, MdDelete  } from "react-icons/md";
 
 export default function TaskBox({ task, goal_id }) {
   const router = useRouter()
@@ -63,10 +64,37 @@ export default function TaskBox({ task, goal_id }) {
         task.content = taskContent
         router.refresh()
       } else {
-        throw new Error("Failed to create task")
+        throw new Error("Failed to update task")
       }
     } catch (error) {
       console.log("error updating is_completed of task: ", error)
+    }
+  }
+
+  async function deleteTask(){
+    const task_data = {
+      _id: task._id,
+      goal_id: goal_id,
+      user_id: task.user_id
+    }
+
+    try {
+      const res = await fetch("/api/task/delete", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(task_data),
+      })
+      if (res.ok) {
+        // setIsInputType(false)
+        // task.content = taskContent
+        router.refresh()
+      } else {
+        throw new Error("Failed to delete task")
+      }
+    } catch (error) {
+      console.log("error deleting task: ", error)
     }
   }
 
@@ -111,11 +139,23 @@ export default function TaskBox({ task, goal_id }) {
             )}
             <p className="ml-2">{task.content}</p>
           </div>
+
+          {/* UPDATE BUTTON */}
           <button
-            className="text-sm underline text-blue-500"
+            className="text-xl ml-2 text-gray-500"
             onClick={() => setIsInputType(true)}
           >
-            Update
+            {/* Update */}
+            <MdEdit />
+          </button>
+
+          {/* DELETE BUTTON */}
+          <button
+            className="text-xl ml-2 text-gray-500"
+            onClick={deleteTask}
+          >
+            {/* Update */}
+            <MdDelete />
           </button>
         </>
       )}
