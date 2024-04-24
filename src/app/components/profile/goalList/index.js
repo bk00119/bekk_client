@@ -12,8 +12,8 @@ export default function GoalList({ goals }) {
       <div className="ml-4">
         {val.task_ids.length > 0 ? (
           <>
-            <TaskList tasks={val.incomplete_tasks} is_completed={false} />
-            <TaskList tasks={val.completed_tasks} is_completed={true} />
+            <TaskList goal_id={val._id} tasks={val.incomplete_tasks} is_completed={false} />
+            <TaskList goal_id={val._id} tasks={val.completed_tasks} is_completed={true} />
           </>
         ) : (
           <div>No tasks added yet</div>

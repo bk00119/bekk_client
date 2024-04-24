@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
-export default function TaskBox({ task }) {
+export default function TaskBox({ task, goal_id }) {
   const router = useRouter()
   const [isCompleted, setIsCompleted] = useState(task.is_completed)
   const [isInputType, setIsInputType] = useState(false)
@@ -13,6 +13,7 @@ export default function TaskBox({ task }) {
     // UPDATE is_changed OF THE TASK
     const updated_task = {
       _id: task._id,
+      goal_id: goal_id,
       user_id: task.user_id,
       is_completed: !isCompleted,
     }
@@ -44,6 +45,7 @@ export default function TaskBox({ task }) {
   async function updateTaskContent() {
     const updated_task = {
       _id: task._id,
+      goal_id: goal_id,
       user_id: task.user_id,
       content: taskContent,
     }
