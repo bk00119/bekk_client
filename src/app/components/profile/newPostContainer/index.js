@@ -42,7 +42,11 @@ export default function NewPostContainer({ user_id, goals }) {
   return (
     <div>
       {isAddingPost ? (
-        <NewPostField createPost={handleSubmitPost} goals={goals} />
+        <NewPostField
+          createPost={handleSubmitPost}
+          goals={goals}
+          setIsAddingPost={setIsAddingPost}
+        />
       ) : (
         <NewPostButton handleAddPost={handleAddPost} />
       )}
