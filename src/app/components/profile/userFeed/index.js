@@ -21,8 +21,8 @@ export default async function UserFeed({ user_id, username }) {
   }
 
   return (
-    <div className="w-full">
-      <h1>Feed</h1>
+    <div className="w-full mt-8">
+      <h1 className="text-xl font-semibold mb-4 ml-1">Feed</h1>
       {feed && (
         Object.entries(feed).map(([key, value]) => (
           <div key={key}>

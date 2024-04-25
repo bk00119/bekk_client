@@ -1,25 +1,16 @@
 "use client"
 
-import Select from "react-select"
-import { useId, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { useRouter } from "next/navigation"
+import GoalSelect from "../goalSelect"
 
 export default function NewTaskField({ user_id, goals }) {
   const router = useRouter()
-  const ref = useRef()
 
   const selectRef = useRef(null)
-  const inputRef = useRef(null)
 
   const [task, setTask] = useState("")
   const [goal, setGoal] = useState("")
-
-  const goal_options = goals
-    ? Object.entries(goals).map(([key, val]) => ({
-        label: val.content,
-        value: key,
-      }))
-    : []
 
   function handleAddTask() {
     try {
@@ -77,15 +68,7 @@ export default function NewTaskField({ user_id, goals }) {
       />
 
       {/* SELECT GOALS */}
-      {/* Warning: Extra attributes from the server: aria-activedescendant */}
-      <Select
-        placeholder="Select a goal"
-        ref={selectRef}
-        options={goal_options}
-        instanceId={useId()}
-        onChange={(option) => setGoal(option.value)}
-        className="w-full mb-2"
-      />
+      <GoalSelect goals={goals} selectRef={selectRef} setGoal={setGoal} />
 
       <button
         onClick={handleAddTask}

@@ -1,6 +1,6 @@
 import { cookies } from "next/headers"
 
-import NewPostField from "../newPostField"
+import NewPostContainer from "../newPostContainer"
 import NewTaskField from "../newTaskField"
 import NewGoalField from "../newGoalField"
 import UserFeed from "../userFeed"
@@ -61,20 +61,21 @@ export default async function PrivateProfilePage({ profile_id, children }) {
   return userData ? (
     <div className="w-full">
       {/* MODIFY THIS */}
-      {children}
+      {/* {children} */}
 
       {/* Profile Section */}
-      <h2 className="mb-4 text-lg font-semibold">Your Profile:</h2>
-      <div>profile: {userData?.username}</div>
-      <div>
-        name: {userData?.first_name} {userData?.last_name}
-      </div>
+      <h1 className="text-2xl font-semibold mb-8">
+        {userData?.username}{" "}
+        <span className="font-normal">
+          ({userData?.first_name} {userData?.last_name})
+        </span>
+      </h1>
 
       <div className="flex justify-between">
         {/* LEFT COLUMN */}
         {/* POST SECTION */}
         <div className="w-full">
-          <NewPostField user_id={profile_id} />
+          <NewPostContainer user_id={profile_id} goals={userGoals} />
           <UserFeed user_id={profile_id} username={userData.username} />
         </div>
 
