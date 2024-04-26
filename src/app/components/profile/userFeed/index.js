@@ -18,6 +18,7 @@ export default async function UserFeed({ user_id, username }) {
   let feed
   if(user_id){
     feed = await getFeed()
+    console.log(feed)
   }
 
   return (
@@ -27,7 +28,7 @@ export default async function UserFeed({ user_id, username }) {
         Object.entries(feed).map(([key, value]) => (
           <div key={key}>
             {/* MODIFY THIS AFTER MERGING KAITLYN'S WORK */}
-            <FeedCard post_id={key} post_data={value} username={username} />
+            <FeedCard post_id={key} post_data={value} username={username} user_id={user_id} />
           </div>
         ))
       )}
