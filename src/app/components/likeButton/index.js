@@ -2,9 +2,12 @@
 
 import { FaRegHeart, FaHeart } from "react-icons/fa"
 import { useEffect, useState } from "react"
+import LikesModal from "../LikesModal"
 
 export default function LikeButton({ post_id, user_id, post_like_ids }) {
   const [isLiked, setLiked] = useState(checkIsPostLiked())
+  const [openModal, setOpenModal] = useState(false)
+  const [likedUsers, setLikedUsers] = useState([])
   const [numLikes, setNumLikes] = useState(post_like_ids.length)
 
   useEffect(() => {}, [isLiked])
@@ -64,6 +67,29 @@ export default function LikeButton({ post_id, user_id, post_like_ids }) {
     }
   }
 
+  async function viewLikes() {
+    try {
+      const res = await fetch("/api/post/viewLikes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          _id: post_id,
+        }),
+      })
+      if (res.ok) {
+        setOpenModal(true)
+        const data = await res.json()
+        setLikedUsers(data?.users)
+      } else {
+        throw new Error("Failed to like post")
+      }
+    } catch (error) {
+      console.log("error post like: ", error)
+    }
+  }
+
   return (
     <div className="flex items-center mt-4">
       {isLiked ? (
@@ -77,9 +103,17 @@ export default function LikeButton({ post_id, user_id, post_like_ids }) {
       )}
 
       {/* CLICK ON {NUM} LIKES TO VIEW WHO LIKED THE POSTS "LIKED BY..." */}
-      <button className="ml-2">
+      <button className="ml-2" onClick={viewLikes}>
         {numLikes} {numLikes > 1 ? "likes" : "like"}
       </button>
+
+      {openModal && (
+        <LikesModal
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          users={likedUsers}
+        />
+      )}
     </div>
   )
 }
