@@ -77,7 +77,9 @@ export default function LikeButton({ post_id, user_id, post_like_ids }) {
       )}
 
       {/* CLICK ON {NUM} LIKES TO VIEW WHO LIKED THE POSTS "LIKED BY..." */}
-      <button className="ml-2">{numLikes} likes</button>
+      <button className="ml-2">
+        {numLikes} {numLikes > 1 ? "likes" : "like"}
+      </button>
     </div>
   )
 }
