@@ -21,31 +21,31 @@ export default async function FeedCard({
           </Link>
         </p>
       </div>
-      <div className="mb-2">
-        <p>{post_data.content}</p>
+      <div className="">
+        <p className="text-xl">{post_data.content}</p>
       </div>
-      <div className="flex items-center">
-        <div className="task-list">
-          <p className="font-medium">Tasks:</p>
-          <ul className="list-disc pl-4">
-            {post_data.task_ids &&
-              post_data.task_ids.map((task, index) => (
-                <li key={index}>{task}</li>
+      {post_data?.Tasks && post_data.Tasks.length > 0 && (
+        <div className="mt-2">
+          <p>Tasks:</p>
+          <ul className="list-disc pl-4 font-light">
+            {post_data?.Tasks &&
+              post_data.Tasks.map((task, index) => (
+                <li key={task._id}>{task.content}</li>
               ))}
           </ul>
         </div>
-      </div>
-      <div className="flex items-center">
-        <div className="task-list">
-          <p className="font-medium">Goals:</p>
-          <ul className="list-disc pl-4">
-            {post_data.goal_ids &&
-              post_data.goal_ids.map((task, index) => (
-                <li key={index}>{task}</li>
+      )}
+      {post_data?.Goals && post_data.Goals.length > 0 && (
+        <div className="mt-2">
+          <p>Goals:</p>
+          <ul className="list-disc pl-4 font-light">
+            {post_data?.Goals &&
+              post_data.Goals.map((goal, index) => (
+                <li key={goal._id}>{goal.content}</li>
               ))}
           </ul>
         </div>
-      </div>
+      )}
 
       {/* LIKES */}
       <LikeButton
@@ -78,7 +78,6 @@ export default async function FeedCard({
         {/* ADD COMMENT */}
         {/* OPEN A PAGE WITH POST/{POST_ID} AND SHOW ALL COMMENTS + LET USER WRITE COMMENTS*/}
         <button className="mt-2 text-gray-500">Add a comment...</button>
-        
       </div>
     </div>
   )
