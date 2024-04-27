@@ -27,14 +27,15 @@ export default async function PublicProfilePage({ profile_id, children }) {
 
   return userData ? (
     <div className="w-full">
-      {children}
+      {/* {children} */}
 
       {/* Profile Section */}
-      <h2 className="mb-4 text-lg font-semibold">Profile:</h2>
-      <div>profile: {userData?.username}</div>
-      <div>
-        name: {userData?.first_name} {userData?.last_name}
-      </div>
+      <h1 className="text-2xl font-semibold mb-8">
+        {userData?.username}{" "}
+        <span className="font-normal">
+          ({userData?.first_name} {userData?.last_name})
+        </span>
+      </h1>
 
       {/* FEED */}
       <UserFeed user_id={profile_id} username={userData.username} />
