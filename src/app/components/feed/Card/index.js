@@ -1,16 +1,14 @@
-import { FaRegHeart, FaHeart } from "react-icons/fa"
+"use server"
+
 import Link from "next/link"
+import LikeButton from "../../likeButton"
 
-export default function FeedCard({ post_id, post_data, username, user_id }) {
-  function checkIsPostLiked(){
-    for(const id of post_data?.like_ids){
-      if (user_id == id){
-        return true
-      }
-    }
-    return false
-  }
-
+export default async function FeedCard({
+  post_id,
+  post_data,
+  username,
+  user_id,
+}) {
   return (
     <div className="w-auto bg-white shadow-md mb-8 p-4 rounded-lg task-list-container">
       <div className="mb-2">
@@ -50,10 +48,11 @@ export default function FeedCard({ post_id, post_data, username, user_id }) {
       </div>
 
       {/* LIKES */}
-      <div className="flex items-center mt-4">
-        {checkIsPostLiked() ? <FaHeart className="text-blue-500 text-lg"/> : <FaRegHeart className="text-blue-500 text-lg"/>}
-        <p className="ml-1">{post_data.like_ids.length}</p>
-      </div>
+      <LikeButton
+        post_id={post_id}
+        user_id={user_id}
+        post_like_ids={post_data.like_ids}
+      />
     </div>
   )
 }

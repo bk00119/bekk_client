@@ -18,7 +18,6 @@ export default async function UserFeed({ user_id, username }) {
   let feed
   if(user_id){
     feed = await getFeed()
-    console.log(feed)
   }
 
   return (

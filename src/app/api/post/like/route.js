@@ -13,16 +13,13 @@ export async function POST(req) {
   reqData.access_token = access_token.value
   reqData.refresh_token = refresh_token.value
 
-  const res = await fetch(
-    `${process.env.REACT_APP_BACKEND_URL}/create/user/goal`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(reqData),
-    }
-  )
+  const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/like/post`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(reqData)
+  })
 
   const data = await res.json()
 
