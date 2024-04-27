@@ -8,7 +8,9 @@ export default function CommentInput({ user_id, post_id, reloadComments }) {
   async function postComment(e) {
     // TO PREVENT FROM RELOADING
     e.preventDefault()
-
+    if (!comment || comment?.length === 0){
+      return alert("Please add a comment")
+    }
     try {
       const res = await fetch("/api/post/comment/create", {
         method: "POST",
@@ -16,7 +18,6 @@ export default function CommentInput({ user_id, post_id, reloadComments }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_id: user_id,
           post_id: post_id,
           content: comment,
         }),
