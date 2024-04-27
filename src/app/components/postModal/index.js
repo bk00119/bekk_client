@@ -123,7 +123,7 @@ export default function PostModal({
               <div className="overflow-y-auto">
                 {comments &&
                   comments.map((comment, index) => (
-                    <div className="flex mb-2">
+                    <div className="flex mb-2" key={index}>
                       <p key={index} className="font-semibold">
                         {comment.username}
                       </p>

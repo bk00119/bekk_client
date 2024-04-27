@@ -56,30 +56,38 @@ export default async function FeedCard({
       />
 
       {/* COMMENTS */}
-      <div className="mt-4">
+      <div className="mt-4 flex flex-col items-start">
         {/* OPEN A PAGE WITH POST/{POST_ID} AND SHOW ALL COMMENTS + LET USER WRITE COMMENTS*/}
-        <CommentButton
-          className="text-gray-500"
-          post_id={post_id}
-          post_data={post_data}
-          user_id={user_id}
-        >
-          View all {post_data.comment_ids.length} comments
-        </CommentButton>
+        {post_data?.comment_ids?.length > 0 && (
+          <CommentButton
+            className="text-gray-500"
+            post_id={post_id}
+            post_data={post_data}
+            user_id={user_id}
+          >
+            View all {post_data.comment_ids.length}{" "}
+            {post_data.comment_ids.length > 1 ? "comments" : "comment"}
+          </CommentButton>
+        )}
 
         {/* ONE OF THE COMMENTS */}
-        <div className="mt-2 flex justify-between items-center text-sm">
-          <div className="flex">
-            <p className="font-semibold">{post_data?.comments?.username}</p>
-            <p className="ml-2">{post_data?.comments?.content}</p>
+        {post_data?.comments?.username && (
+          <div className="mt-2 flex justify-between items-center text-sm">
+            <div className="flex">
+              <p className="font-semibold">{post_data?.comments?.username}</p>
+              <p className="ml-2">{post_data?.comments?.content}</p>
+            </div>
+            <p>
+              {new Date(post_data?.comments?.timestamp).toLocaleString(
+                "en-US",
+                {
+                  month: "short",
+                  day: "numeric",
+                }
+              )}
+            </p>
           </div>
-          <p>
-            {new Date(post_data?.comments?.timestamp).toLocaleString("en-US", {
-              month: "short",
-              day: "numeric",
-            })}
-          </p>
-        </div>
+        )}
 
         {/* ADD COMMENT */}
         {/* OPEN A PAGE WITH POST/{POST_ID} AND SHOW ALL COMMENTS + LET USER WRITE COMMENTS*/}
