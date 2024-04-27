@@ -53,6 +53,33 @@ export default async function FeedCard({
         user_id={user_id}
         post_like_ids={post_data.like_ids}
       />
+
+      {/* COMMENTS */}
+      <div className="mt-4">
+        {/* OPEN A PAGE WITH POST/{POST_ID} AND SHOW ALL COMMENTS + LET USER WRITE COMMENTS*/}
+        <button className="text-gray-500">
+          View all {post_data.comment_ids.length} comments
+        </button>
+
+        {/* ONE OF THE COMMENTS */}
+        <div className="mt-2 flex justify-between items-center text-sm">
+          <div className="flex">
+            <p className="font-semibold">{post_data?.comments?.username}</p>
+            <p className="ml-2">{post_data?.comments?.content}</p>
+          </div>
+          <p>
+            {new Date(post_data?.comments?.timestamp).toLocaleString("en-US", {
+              month: "short",
+              day: "numeric",
+            })}
+          </p>
+        </div>
+
+        {/* ADD COMMENT */}
+        {/* OPEN A PAGE WITH POST/{POST_ID} AND SHOW ALL COMMENTS + LET USER WRITE COMMENTS*/}
+        <button className="mt-2 text-gray-500">Add a comment...</button>
+        
+      </div>
     </div>
   )
 }

@@ -20,6 +20,7 @@ export default async function UserFeed({ user_id, username }) {
     feed = await getFeed()
   }
 
+  console.log(feed)
   return (
     <div className="w-full mt-8">
       <h1 className="text-xl font-semibold mb-4 ml-1">Feed</h1>
