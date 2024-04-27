@@ -4,14 +4,7 @@ import { verifyToken } from "@/utils/jwt"
 import ErrorMessage from "./components/errorMessage"
 import FeedCard from "./components/feed/Card"
 
-async function getFeed() {
-  const cookieStore = cookies()
-  const access_token = cookieStore.get("access_token")
-  const access_token_data = await verifyToken(access_token.value)
-
-  // CURRENT USER'S ID
-  const curr_user_id = access_token_data?.user_id
-
+async function getFeed(curr_user_id) {
   if(!curr_user_id) return console.log("Error: failed loading feed bc user_id ")
 
   const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/view/posts/all`, {
@@ -27,15 +20,21 @@ async function getFeed() {
 }
 
 export default async function Home() {
-  const feed = await getFeed();
+  const cookieStore = cookies()
+  const access_token = cookieStore.get("access_token")
+  const access_token_data = await verifyToken(access_token.value)
+  // CURRENT USER'S ID
+  const curr_user_id = access_token_data?.user_id
 
-  if (feed) {
+  const feed = await getFeed(curr_user_id);
+
+  if (feed && curr_user_id) {
     return (
       <div className="w-full">
         <h1 className="text-2xl mb-8">Feed</h1>
         {Object.entries(feed).map(([key, value]) => (
           <div key={key}>
-            <FeedCard post_id={key} post_data={value} />
+            <FeedCard post_id={key} post_data={value} user_id={curr_user_id} />
           </div>
         ))}
       </div>

@@ -21,12 +21,15 @@ export default async function UserFeed({ user_id, username }) {
   }
 
   console.log(feed)
+
   return (
     <div className="w-full mt-8">
       <h1 className="text-xl font-semibold mb-4 ml-1">Feed</h1>
       {feed && (
         Object.entries(feed).map(([key, value]) => (
           <div key={key}>
+            {console.log(value?.Goals)}
+            {console.log(value?.Tasks)}
             {/* MODIFY THIS AFTER MERGING KAITLYN'S WORK */}
             <FeedCard post_id={key} post_data={value} username={username} user_id={user_id} />
           </div>
