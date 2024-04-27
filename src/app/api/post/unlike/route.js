@@ -1,5 +1,7 @@
 import { cookies } from "next/headers"
 
+import { verifyToken } from "@/utils/jwt"
+
 export async function POST(req) {
   const reqData = await req.json()
   const access_token = cookies().get("access_token")
@@ -12,6 +14,14 @@ export async function POST(req) {
   }
   reqData.access_token = access_token.value
   reqData.refresh_token = refresh_token.value
+
+  const access_token_data = await verifyToken(access_token.value)
+  if (!access_token_data) {
+    return Response.error("Invalid access token")
+  }
+
+  // INCLUDE USER_ID FROM THE SERVER-SIDE
+  reqData.user_id = access_token_data.user_id
 
   const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/unlike/post`, {
     method: "POST",

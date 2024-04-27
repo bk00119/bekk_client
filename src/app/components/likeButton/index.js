@@ -2,19 +2,30 @@
 
 import { FaRegHeart, FaHeart } from "react-icons/fa"
 import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 import LikesModal from "../LikesModal"
 
 export default function LikeButton({ post_id, user_id, post_like_ids }) {
-  const [isLiked, setLiked] = useState(checkIsPostLiked())
+  const curr_user_id = useSelector((state) => {
+    return state.userData._id
+  })
+
+  const [isLoaded, setLoaded] = useState(false)
+  const [isLiked, setLiked] = useState(false)
   const [openModal, setOpenModal] = useState(false)
   const [likedUsers, setLikedUsers] = useState([])
   const [numLikes, setNumLikes] = useState(post_like_ids.length)
 
-  useEffect(() => {}, [isLiked])
+  useEffect(() => {
+    if (!isLoaded && curr_user_id) {
+      setLiked(checkIsPostLiked())
+      setLoaded(true)
+    }
+  }, [curr_user_id, isLiked])
 
   function checkIsPostLiked() {
     for (const id of post_like_ids) {
-      if (user_id == id) {
+      if (curr_user_id == id) {
         return true
       }
     }
@@ -30,7 +41,6 @@ export default function LikeButton({ post_id, user_id, post_like_ids }) {
         },
         body: JSON.stringify({
           _id: post_id,
-          user_id: user_id,
         }),
       })
       if (res.ok) {
@@ -53,7 +63,6 @@ export default function LikeButton({ post_id, user_id, post_like_ids }) {
         },
         body: JSON.stringify({
           _id: post_id,
-          user_id: user_id,
         }),
       })
       if (res.ok) {
@@ -92,7 +101,7 @@ export default function LikeButton({ post_id, user_id, post_like_ids }) {
 
   return (
     <div className="flex items-center mt-4">
-      {isLiked ? (
+      {curr_user_id && isLiked ? (
         <button onClick={unlikePost}>
           <FaHeart className="text-blue-500 text-lg" />
         </button>
