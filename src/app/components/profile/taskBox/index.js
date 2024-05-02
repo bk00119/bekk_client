@@ -151,7 +151,7 @@ export default function TaskBox({ task, goal_id }) {
 
           {/* DELETE BUTTON */}
           <button
-            className="text-xl ml-2 text-gray-500"
+            className="text-xl ml-2 text-gray-500 hover:bg-red-600"
             onClick={deleteTask}
           >
             {/* Update */}

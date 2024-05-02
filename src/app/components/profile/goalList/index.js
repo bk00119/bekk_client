@@ -35,7 +35,7 @@ export default function GoalList({ goals }) {
       <div className="flex">
         <p className="font-medium">{val.content}</p>
         {/* DELETE BUTTON */}
-        <button className="text-xl ml-4 text-gray-500" onClick={()=>deleteGoal(val._id)}>
+        <button className="text-xl ml-4 text-gray-500 hover:bg-red-600" onClick={()=>deleteGoal(val._id)}>
           <MdDelete />
         </button>
       </div>
