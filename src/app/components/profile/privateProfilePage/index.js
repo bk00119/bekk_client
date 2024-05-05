@@ -85,7 +85,7 @@ export default async function PrivateProfilePage({ profile_id, children }) {
           <div className="w-full p-4 border rounded">
             <NewTaskField user_id={profile_id} goals={userGoals} />
           </div>
-
+          
           {/* GOAL SECTION */}
           <div className="w-full p-4 border rounded mt-4">
             <GoalsContainer goals={userGoals} />

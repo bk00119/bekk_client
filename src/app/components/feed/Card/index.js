@@ -16,14 +16,14 @@ export default async function FeedCard({
         <p>
           <Link
             href={`/profile/${post_data.user_id}`}
-            className="underline underline-offset-4 text-lg font-medium"
+            className="underline underline-offset-4 text-xl font-medium"
           >
             {post_data.username ? post_data.username : username}
           </Link>
         </p>
       </div>
       <div className="">
-        <p className="text-xl">{post_data.content}</p>
+        <p className="text-lg">{post_data.content}</p>
       </div>
       {post_data?.Tasks && post_data.Tasks.length > 0 && (
         <div className="mt-2">
@@ -71,23 +71,28 @@ export default async function FeedCard({
         )}
 
         {/* ONE OF THE COMMENTS */}
+
         {post_data?.comments?.username && (
           <div className="mt-2 flex justify-between items-center text-sm">
             <div className="flex">
               <p className="font-semibold">{post_data?.comments?.username}</p>
               <p className="ml-2">{post_data?.comments?.content}</p>
             </div>
-            <p>
-              {new Date(post_data?.comments?.timestamp).toLocaleString(
-                "en-US",
-                {
-                  month: "short",
-                  day: "numeric",
-                }
-              )}
-            </p>
+            <div className="ml-4 flex items-center">
+              <p className="mr-4 text-gray-400">
+                {new Date(post_data?.comments?.timestamp).toLocaleString(
+                  "en-US",
+                  {
+                    month: "short",
+                    day: "numeric",
+                  }
+                )}
+              </p>
+            </div>
           </div>
         )}
+
+
 
         {/* ADD COMMENT */}
         {/* OPEN A PAGE WITH POST/{POST_ID} AND SHOW ALL COMMENTS + LET USER WRITE COMMENTS*/}
