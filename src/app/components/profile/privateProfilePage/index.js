@@ -81,16 +81,16 @@ export default async function PrivateProfilePage({ profile_id, children }) {
 
         {/* RIGHT COLUMN */}
         <div className="w-1/2 ml-4">
+          {/* Tasks Section */}
+          <div className="w-full p-4 border rounded">
+            <NewTaskField user_id={profile_id} goals={userGoals} />
+          </div>
           
           {/* GOAL SECTION */}
           <div className="w-full p-4 border rounded mt-4">
             <GoalsContainer goals={userGoals} />
             {/* ADD NewGoalField */}
             <NewGoalField user_id={profile_id} />
-          </div>
-          {/* Tasks Section */}
-          <div className="w-full p-4 border rounded">
-            <NewTaskField user_id={profile_id} goals={userGoals} />
           </div>
         </div>
       </div>

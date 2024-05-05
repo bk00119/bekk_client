@@ -16,7 +16,7 @@ export default async function FeedCard({
         <p>
           <Link
             href={`/profile/${post_data.user_id}`}
-            className="underline underline-offset-4 text-xl font-medium italic"
+            className="underline underline-offset-4 text-xl font-medium"
           >
             {post_data.username ? post_data.username : username}
           </Link>
@@ -77,9 +77,8 @@ export default async function FeedCard({
             <div className="flex">
               <p className="font-semibold">{post_data?.comments?.username}</p>
               <p className="ml-2">{post_data?.comments?.content}</p>
-              <p className="ml-4">{    } </p>
             </div>
-            <div className="flex items-center">
+            <div className="ml-4 flex items-center">
               <p className="mr-4 text-gray-400">
                 {new Date(post_data?.comments?.timestamp).toLocaleString(
                   "en-US",

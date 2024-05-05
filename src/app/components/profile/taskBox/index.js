@@ -129,12 +129,14 @@ export default function TaskBox({ task, goal_id }) {
                 type="checkbox"
                 checked={isCompleted}
                 onChange={setTaskChanged}
+                className="cursor-pointer"
               />
             ) : (
               <input
                 type="checkbox"
                 checked={isCompleted}
                 onChange={setTaskChanged}
+                className="cursor-pointer"
               />
             )}
             <p className="ml-2">{task.content}</p>
@@ -142,7 +144,7 @@ export default function TaskBox({ task, goal_id }) {
 
           {/* UPDATE BUTTON */}
           <button
-            className="text-xl ml-2 text-gray-500"
+            className="text-xl ml-2 text-gray-500 hover:text-gray-700"
             onClick={() => setIsInputType(true)}
           >
             {/* Update */}
@@ -151,7 +153,7 @@ export default function TaskBox({ task, goal_id }) {
 
           {/* DELETE BUTTON */}
           <button
-            className="text-xl ml-2 text-gray-500 hover:bg-red-600"
+            className="text-xl ml-2 text-gray-500 hover:text-gray-700"
             onClick={deleteTask}
           >
             {/* Update */}
